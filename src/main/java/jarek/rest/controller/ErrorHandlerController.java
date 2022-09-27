@@ -15,6 +15,6 @@ public class ErrorHandlerController {
     public ResponseEntity<ErrorMessage> handleEntityNotFound(EntityNotFoundException exception) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND) //404
-                .body(new ErrorMessage("Unable to find entity " + exception.getMessage()));
+                .body(new ErrorMessage("Unable to find entity " + exception.getMessage()    ));
     }
 }
