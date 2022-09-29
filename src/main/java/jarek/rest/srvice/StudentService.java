@@ -1,6 +1,7 @@
 package jarek.rest.srvice;
 
 import jarek.rest.model.Student;
+import jarek.rest.model.dto.StudentUpdateRequest;
 import jarek.rest.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +33,8 @@ public class StudentService {
         return studentRepository.save(student).getId();
     }
 
-    public void update(Student studentToEdit) {
-        Optional<Student> optionalStudent = studentRepository.findById(studentToEdit.getId());
+    public void update(StudentUpdateRequest studentToEdit) {
+        Optional<Student> optionalStudent = studentRepository.findById(studentToEdit.getStudentId());
         if (optionalStudent.isPresent()) {
             Student student = optionalStudent.get();
 
@@ -46,15 +47,15 @@ public class StudentService {
             if (studentToEdit.getDateOfBirth() != null) {
                 student.setDateOfBirth(studentToEdit.getDateOfBirth());
             }
-//            if (studentToEdit.getIsAlive() != null) {
-//                student.setAlive(studentToEdit.getIsAlive());
-//            }
+            if (studentToEdit.getIsAlive() != null) {
+                student.setAlive(studentToEdit.getIsAlive());
+            }
 
             studentRepository.save(student);
             return;
 
         }
-        throw new EntityNotFoundException("student, id: " + studentToEdit.getId());
+        throw new EntityNotFoundException("student, id: " + studentToEdit.getStudentId());
 
     }
 }

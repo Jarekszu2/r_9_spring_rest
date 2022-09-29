@@ -1,6 +1,7 @@
 package jarek.rest.controller;
 
 import jarek.rest.model.Student;
+import jarek.rest.model.dto.StudentUpdateRequest;
 import jarek.rest.srvice.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class StudentController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public void postStudent(Student student) {
+    public void postStudent(StudentUpdateRequest student) {
         studentService.update(student);
     }
 }
