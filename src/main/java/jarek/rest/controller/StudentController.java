@@ -1,6 +1,7 @@
 package jarek.rest.controller;
 
 import jarek.rest.model.Student;
+import jarek.rest.model.dto.CreateStudentRequest;
 import jarek.rest.model.dto.StudentUpdateRequest;
 import jarek.rest.srvice.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +32,20 @@ public class StudentController {
     }
 
     @PutMapping
-    public Long putStudent(Student student) {
+    public Long putStudent(CreateStudentRequest dto) {
         // id
-        return studentService.save(student);
+        return studentService.save(dto);
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public void postStudent(StudentUpdateRequest student) {
         studentService.update(student);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    public void delete(@PathVariable ("id") Long deletedId) {
+        studentService.delete(deletedId);
     }
 }

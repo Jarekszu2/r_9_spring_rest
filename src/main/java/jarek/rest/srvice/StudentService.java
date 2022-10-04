@@ -1,6 +1,8 @@
 package jarek.rest.srvice;
 
+import jarek.rest.mapper.StudentMapper;
 import jarek.rest.model.Student;
+import jarek.rest.model.dto.CreateStudentRequest;
 import jarek.rest.model.dto.StudentUpdateRequest;
 import jarek.rest.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private StudentMapper studentMapper;
+
 
     public List<Student> getAll() {
         return studentRepository.findAll();
@@ -29,7 +34,10 @@ public class StudentService {
         throw new EntityNotFoundException("student, id: " + studentId);
     }
 
-    public Long save(Student student) {
+    public Long save(CreateStudentRequest dto) {
+
+        Student student = studentMapper.createStudentFromDTO(dto);
+
         return studentRepository.save(student).getId();
     }
 
@@ -57,5 +65,12 @@ public class StudentService {
         }
         throw new EntityNotFoundException("student, id: " + studentToEdit.getStudentId());
 
+    }
+
+    public void delete(Long deletedId) {
+        if (studentRepository.existsById(deletedId)) {
+            studentRepository.deleteById(deletedId);
+        }
+        throw new EntityNotFoundException("student, id: " + deletedId);
     }
 }
