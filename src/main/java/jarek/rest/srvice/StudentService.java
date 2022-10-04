@@ -6,6 +6,8 @@ import jarek.rest.model.dto.CreateStudentRequest;
 import jarek.rest.model.dto.StudentUpdateRequest;
 import jarek.rest.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -72,5 +74,9 @@ public class StudentService {
             studentRepository.deleteById(deletedId);
         }
         throw new EntityNotFoundException("student, id: " + deletedId);
+    }
+
+    public Page<Student> getPage(PageRequest of) {
+        return studentRepository.findAll(of);
     }
 }

@@ -5,6 +5,8 @@ import jarek.rest.model.dto.CreateStudentRequest;
 import jarek.rest.model.dto.StudentUpdateRequest;
 import jarek.rest.srvice.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,5 +49,11 @@ public class StudentController {
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public void delete(@PathVariable ("id") Long deletedId) {
         studentService.delete(deletedId);
+    }
+
+    @GetMapping("/getPage")
+    public Page<Student> getPage(@RequestParam(name = "pageNumber", defaultValue = "0") int page,
+                                 @RequestParam(name = "pageSize", defaultValue = "5") int size) {
+        return studentService.getPage(PageRequest.of(page, size));
     }
 }
