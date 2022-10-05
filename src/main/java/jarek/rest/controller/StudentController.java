@@ -1,6 +1,7 @@
 package jarek.rest.controller;
 
 import jarek.rest.model.Student;
+import jarek.rest.model.dto.AddGradeToStudent;
 import jarek.rest.model.dto.CreateStudentRequest;
 import jarek.rest.model.dto.StudentUpdateRequest;
 import jarek.rest.service.StudentService;
@@ -54,5 +55,10 @@ public class StudentController {
     public Page<Student> getPage(@RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                  @RequestParam(name = "pageSize", defaultValue = "5") int size) {
         return studentService.getPage(PageRequest.of(page, size));
+    }
+
+    @PostMapping("/grade")
+    public Long addGrade(AddGradeToStudent dto) {
+        return studentService.addGradeToStudent(dto);
     }
 }

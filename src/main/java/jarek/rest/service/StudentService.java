@@ -1,9 +1,13 @@
 package jarek.rest.service;
 
+import jarek.rest.mapper.GradeMapper;
 import jarek.rest.mapper.StudentMapper;
+import jarek.rest.model.Grade;
 import jarek.rest.model.Student;
+import jarek.rest.model.dto.AddGradeToStudent;
 import jarek.rest.model.dto.CreateStudentRequest;
 import jarek.rest.model.dto.StudentUpdateRequest;
+import jarek.rest.repository.GradeRepository;
 import jarek.rest.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +27,11 @@ public class StudentService {
     @Autowired
     private StudentMapper studentMapper;
 
+    @Autowired
+    private GradeMapper gradeMapper;
+
+    @Autowired
+    private GradeRepository gradeRepository;
 
     public List<Student> getAll() {
         return studentRepository.findAll();
@@ -78,5 +87,20 @@ public class StudentService {
 
     public Page<Student> getPage(PageRequest of) {
         return studentRepository.findAll(of);
+    }
+
+    public Long addGradeToStudent(AddGradeToStudent dto) {
+        Optional<Student> optionalStudent = studentRepository.findById(dto.getStudentId());
+        if (optionalStudent.isPresent()) {
+
+            Student student = optionalStudent.get();
+
+            Grade grade = gradeMapper.createGradeFromDto(dto);
+
+            grade.setStudent(student);
+
+            return gradeRepository.save(grade).getId();
+        }
+        throw new EntityNotFoundException("student, id: " + dto.getStudentId());
     }
 }

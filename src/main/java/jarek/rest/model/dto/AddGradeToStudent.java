@@ -5,12 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// podajemy id studenta i wszystkie niezbędne parametry do utworzenia nowej oceny
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateGradeDTO {
+public class AddGradeToStudent {
 
-    private Integer id;
-    private GradeSubject subject;
+    private Long studentId;
     private double value;
+    private GradeSubject subject;
 }
