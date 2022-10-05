@@ -1,4 +1,4 @@
-package jarek.rest.srvice;
+package jarek.rest.service;
 
 import jarek.rest.mapper.StudentMapper;
 import jarek.rest.model.Student;

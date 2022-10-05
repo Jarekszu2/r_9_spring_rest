@@ -3,14 +3,13 @@ package jarek.rest.controller;
 import jarek.rest.model.Student;
 import jarek.rest.model.dto.CreateStudentRequest;
 import jarek.rest.model.dto.StudentUpdateRequest;
-import jarek.rest.srvice.StudentService;
+import jarek.rest.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.openmbean.CompositeData;
 import java.util.List;
 
 @RestController
