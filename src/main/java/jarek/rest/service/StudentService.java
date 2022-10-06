@@ -1,10 +1,12 @@
 package jarek.rest.service;
 
+import jarek.rest.exception.WrongOperation;
 import jarek.rest.mapper.GradeMapper;
 import jarek.rest.mapper.StudentMapper;
 import jarek.rest.model.Grade;
 import jarek.rest.model.Student;
 import jarek.rest.model.dto.AddGradeToStudent;
+import jarek.rest.model.dto.AssignGradeToStudent;
 import jarek.rest.model.dto.CreateStudentRequest;
 import jarek.rest.model.dto.StudentUpdateRequest;
 import jarek.rest.repository.GradeRepository;
@@ -102,5 +104,29 @@ public class StudentService {
             return gradeRepository.save(grade).getId();
         }
         throw new EntityNotFoundException("student, id: " + dto.getStudentId());
+    }
+
+    public Long assignGradeToStudent(AssignGradeToStudent dto) {
+
+        Optional<Student> studentOptional = studentRepository.findById(dto.getStudentId());
+        if (!studentOptional.isPresent()) {
+            throw new EntityNotFoundException("student, id: " + dto.getStudentId());
+        }
+
+        Optional<Grade> optionalGrade = gradeRepository.findById(dto.getGradeId());
+        if (!optionalGrade.isPresent()) {
+            throw new EntityNotFoundException("grade, id: " + dto.getGradeId());
+        }
+
+        Student student = studentOptional.get();
+        Grade grade = optionalGrade.get();
+
+        if (grade.getStudent() != null) {
+            throw new WrongOperation("You should not assign grade that is already assigned.");
+        }
+
+        grade.setStudent(student);
+
+        return gradeRepository.save(grade).getId();
     }
 }

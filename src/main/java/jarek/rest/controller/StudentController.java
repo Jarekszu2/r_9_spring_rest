@@ -2,6 +2,7 @@ package jarek.rest.controller;
 
 import jarek.rest.model.Student;
 import jarek.rest.model.dto.AddGradeToStudent;
+import jarek.rest.model.dto.AssignGradeToStudent;
 import jarek.rest.model.dto.CreateStudentRequest;
 import jarek.rest.model.dto.StudentUpdateRequest;
 import jarek.rest.service.StudentService;
@@ -60,5 +61,10 @@ public class StudentController {
     @PostMapping("/grade")
     public Long addGrade(AddGradeToStudent dto) {
         return studentService.addGradeToStudent(dto);
+    }
+
+    @PostMapping("/assignGrade")
+    public Long addGrade(AssignGradeToStudent dto) {
+        return studentService.assignGradeToStudent(dto);
     }
 }
