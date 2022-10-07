@@ -3,6 +3,7 @@ package jarek.rest.mapper;
 import jarek.rest.model.Grade;
 import jarek.rest.model.dto.AddGradeToStudent;
 import jarek.rest.model.dto.CreateGradeDTO;
+import jarek.rest.model.dto.CreateGradeWithGradeSubject;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -18,4 +19,6 @@ public interface GradeMapper {
             @Mapping(target = "id", ignore = true)
     })
     Grade createGradeFromDto(AddGradeToStudent dto);
+
+    Grade createGradeFromDTO(CreateGradeWithGradeSubject dto);
 }
