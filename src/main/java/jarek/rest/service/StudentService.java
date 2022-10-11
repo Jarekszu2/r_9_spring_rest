@@ -51,6 +51,8 @@ public class StudentService {
 
         Student student = studentMapper.createStudentFromDTO(dto);
 
+        /*pobierz oceny, nastepnie ustaw w studencie i zapisz nowego do bazy*/
+
         return studentRepository.save(student).getId();
     }
 

@@ -35,14 +35,14 @@ public class StudentController {
     }
 
     @PutMapping
-    public Long putStudent(CreateStudentRequest dto) {
+    public Long putStudent(@RequestBody CreateStudentRequest dto) {
         // id
         return studentService.save(dto);
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public void postStudent(StudentUpdateRequest student) {
+    public void postStudent(@RequestBody StudentUpdateRequest student) {
         studentService.update(student);
     }
 
@@ -59,12 +59,12 @@ public class StudentController {
     }
 
     @PostMapping("/grade")
-    public Long addGrade(AddGradeToStudent dto) {
+    public Long addGrade(@RequestBody AddGradeToStudent dto) {
         return studentService.addGradeToStudent(dto);
     }
 
     @PostMapping("/assignGrade")
-    public Long addGrade(AssignGradeToStudent dto) {
+    public Long addGrade(@RequestBody AssignGradeToStudent dto) {
         return studentService.assignGradeToStudent(dto);
     }
 }
